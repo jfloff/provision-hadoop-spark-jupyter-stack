@@ -1,0 +1,165 @@
+---
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+
+  tasks:
+    - name: print vars
+      debug: 
+        msg:  "{{ groups['hdfs_namenode']}}"
+    - name: print vars
+      debug: 
+        msg:  "{{ groups['hdfs_datanodes']}}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg:  "{{ groups.clients|length > users_wallet_accounts| length}}"
+
+  # - name: info
+  #   delegate_to: 127.0.0.1 
+  #   run_once: yes
+  #   debug: 
+  #     msg:  "clients_per_host: {{ clients_per_host }}, hosts: {{ groups.clients|length }}, size of keys: {{users_node_keys|length}}, last index:{{users_node_keys|length -1}}"
+
+  # - name: Generate a script to run the golang workload LOADER to each server
+  #   debug:
+  #     msg: "generating config for client {{ groups.clients.index(inventory_hostname) }} | (low index:[{{groups.clients.index(inventory_hostname)}}], high index:[{{(users_node_keys|length-1) - (groups.clients.index(inventory_hostname)) }}])  "
+
+
+
+  # - name: Generate a script to run the golang workload CLIENT to each server
+  #   # delegate_to: 127.0.0.1 
+  #   debug:
+  #     msg: "generating config for client {{ groups.clients.index(inventory_hostname) }} thread {{item}}| (low index:[{{groups.clients.index(inventory_hostname)*clients_per_host|int + item|int}}], high index:[{{(users_node_keys|length-1) - (groups.clients.index(inventory_hostname)*clients_per_host|int + item|int) }}])  "
+  #   with_sequence: 0-{{ clients_per_host|int -1 }}
+
+  # - name: Generate a script to run the golang workload CLIENT to each server
+  #   # delegate_to: 127.0.0.1 
+  #   debug:
+  #     msg: "generating config for client {{ groups.clients.index(inventory_hostname) }} thread {{item}}| keys:[{{users_node_keys[groups.clients.index(inventory_hostname)*clients_per_host|int + item|int ]}}, {{users_node_keys[(users_node_keys|length-1) - (groups.clients.index(inventory_hostname)*clients_per_host|int + item|int) ]}}], wallets:[{{users_wallet_accounts[groups.clients.index(inventory_hostname)*clients_per_host|int + item|int ]}},{{users_wallet_accounts[(users_node_keys|length-1) - (groups.clients.index(inventory_hostname)*clients_per_host|int + item|int) ]}}] "
+    # with_sequence: 0-{{ clients_per_host|int -1 }}
+
+    # - name: test if clients have sufficient number of keys and accounts
+    #   delegate_to: 127.0.0.1 
+    #   run_once: yes
+    #   assert: 
+    #     that: 
+    #       - users_wallet_accounts|length == users_node_keys|length
+    #       - users_wallet_accounts|length >= (groups.clients|length * threads_per_client|int)
+    #     fail_msg: "User accounts, keys and available clients don't match: [accounts:{{users_wallet_accounts|length }}, keys:{{users_node_keys|length}}, clients x threads:{{groups.clients|length * threads_per_client|int}}]"
+    #     success_msg: "Keys, accounts are sufficient for the number of clients and threads [accounts:{{users_wallet_accounts|length }}, keys:{{users_node_keys|length}}, clients x threads:{{groups.clients|length * threads_per_client|int}}]"
+
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ inventory_hostname }} {{ groups.clients.index(inventory_hostname) }}"
+
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ inventory_hostname }}  {{groups.clients.index(inventory_hostname) }} % {{ groups['quorum']|length }}  TARGET {{ groups.clients.index(inventory_hostname) % groups['quorum']|length   }}"
+
+
+    # - name: print vars 
+    #   debug: 
+    #     msg: "{{ inventory_hostname }} {{groups.clients.index(inventory_hostname) }} % {{ groups['quorum']|length }}   TARGET {{ hostvars[ groups['quorum'][ groups.clients.index(inventory_hostname) % groups['quorum']|length  ]].ansible_host }}"
+
+
+# - name: Debug variables
+#   hosts: clients
+#   gather_facts: no
+#   become: no
+#   any_errors_fatal: true
+#   vars_files:
+#     - vars.yaml
+
+#   tasks:
+
+
+  # - name: print vars
+  #   delegate_to: 127.0.0.1 
+  #   run_once: true   
+  #   debug: "{{item.0}}  {{item.1}} {{item.2}}"
+  #   # with_together: 
+  #   with_nested:
+  #     - "{{ users_wallet_accounts }}"
+  #     - "{{ users_node_keys }}"
+  #     - "{{ range(1,goquorum_size|int+1)|list }}"
+
+
+    # - name: print vars
+    #   delegate_to: 127.0.0.1
+    #   run_once: true   
+    #   debug: 
+    #     msg: "{{ smartcontracts[smartcontract]['path']  }}"
+
+    # - name: print vars
+    #   delegate_to: 127.0.0.1
+    #   run_once: true   
+    #   debug: 
+    #     msg: "{{ smartcontracts[ item ]['build']  }}"
+    #   with_items: 
+    #     - "{{smartcontracts.keys() | list }}"
+
+    # - name: update config map
+    #   set_fact:
+    #     smartcontracts: "{{ smartcontracts|default({}) | combine ( { smartcontract: { 'contract_rate': contract_rate } }, recursive=True ) }}"
+    #   when: contract_rate is defined
+
+    # - name: print vars
+    #   delegate_to: 127.0.0.1
+    #   run_once: true   
+    #   debug: 
+    #     msg: "{{ smartcontracts }}"
+
+  
+    # - name: print vars
+    #   delegate_to: 127.0.0.1
+    #   run_once: true
+    #   debug: 
+    #     msg: "{{ hostvars[groups['quorum'][0]].ansible_host }}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ groups.clients.index(inventory_hostname) }}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "contract: {{item}}"
+    #   with_items: 
+    #     - "{{smartcontracts.keys() | list }}"
+        
+
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ groups['nodes']  }}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ hostvars[inventory_hostname].node_id }}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ hostvars[inventory_hostname].replica_id }}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "{{ hostvars[inventory_hostname].ansible_host }}"
+
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "Swarm manager details: {{  hostvars[hostvars[inventory_hostname]['groups']['swarm_manager'][0]] }}"
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "token: {{  hostvars[hostvars[inventory_hostname]['groups']['swarm_manager'][0]]['worker_token'] }}"
+
+
+    # - name: print vars
+    #   debug: 
+    #     msg: "chaincode path={{local_caliper_install_dir}}/{{ fabric_caliper_chaincode_benchmark_path[fabric_caliper_chaincode] }}"

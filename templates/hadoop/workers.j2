@@ -1,0 +1,4 @@
+{{ groups['hdfs_namenode'][0] }}
+{% for host in groups['hdfs_datanodes'] %}
+{{ host }}
+{% endfor %}
