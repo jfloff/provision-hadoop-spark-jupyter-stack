@@ -12,6 +12,7 @@
         state: directory
         mode: "g+rw"
       with_items:
+        - "{{ default_home_dir }}/.ssh"      
         - "{{ default_install_dir }}"      
       when: exp_initialized is not defined
 
@@ -47,4 +48,28 @@
     - name: "Define that the init tasks was done."
       set_fact:
         exp_initialized: True
+      when: exp_initialized is not defined
+
+    - name: Generate node ssh key
+      delegate_to: 127.0.0.1
+      run_once: yes
+      community.crypto.openssh_keypair:
+        path: ./id_ssh_rsa_hadoop_cluster
+      when: exp_initialized is not defined
+
+    - name: Copy ssh keys to the cluster nodes
+      copy:
+        src: "{{item}}"
+        dest: "{{ default_home_dir }}/.ssh"
+        mode: '0600'
+      with_items:
+        - id_ssh_rsa_hadoop_cluster
+        - id_ssh_rsa_hadoop_cluster.pub
+      when: exp_initialized is not defined
+
+    - name: Set authorized key took from file
+      authorized_key:
+        user: "{{ default_user }}"
+        state: present
+        key: "{{ lookup('file', 'id_ssh_rsa_hadoop_cluster.pub') }}"
       when: exp_initialized is not defined
