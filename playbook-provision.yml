@@ -5,6 +5,8 @@
 - import_playbook: playbook-provision-hdfs.yml
 # call spark
 - import_playbook: playbook-provision-spark.yml
+# start hdfs
+- import_playbook: playbook-hdfs-start.yml
 
 
 

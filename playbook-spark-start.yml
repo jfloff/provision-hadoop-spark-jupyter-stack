@@ -7,11 +7,14 @@
       - vars.yaml
 
   tasks:
-  - name: Stop HDFS
+  - name: Start Spark Master
     ansible.builtin.shell: |
-      {{hadoop_home_dir}}/sbin/start-master.sh
-      sleep 2
-      {{hadoop_home_dir}}/sbin/start-workers.sh
+      {{spark_home_dir}}/sbin/start-master.sh
+    args:
+      executable: /bin/bash
 
+  - name: Spark Workers
+    ansible.builtin.shell: |
+      {{spark_home_dir}}/sbin/start-workers.sh
     args:
       executable: /bin/bash

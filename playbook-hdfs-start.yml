@@ -7,11 +7,14 @@
       - vars.yaml
 
   tasks:
-  - name: Stop HDFS
+  - name: Start DFS
     ansible.builtin.shell: |
       {{hadoop_home_dir}}/sbin/start-dfs.sh
-      sleep 2
-      {{hadoop_home_dir}}/sbin/start-yarn.sh
+    args:
+      executable: /bin/bash
 
+  - name: Start YARN
+    ansible.builtin.shell: |
+      {{hadoop_home_dir}}/sbin/start-yarn.sh
     args:
       executable: /bin/bash

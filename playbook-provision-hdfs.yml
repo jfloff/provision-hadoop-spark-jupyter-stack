@@ -18,7 +18,7 @@
       copy:
         src: /tmp/hadoop-{{hadoop_version}}.tar.gz
         dest: "{{ default_install_dir }}/hadoop-{{hadoop_version}}.tar.gz"
-        checksum: "sha256:{{hadoop_version_sha256}}"
+        # checksum: "sha256:{{hadoop_version_sha256}}"
 
     - name: Unarchive hadoop
       ansible.builtin.unarchive:

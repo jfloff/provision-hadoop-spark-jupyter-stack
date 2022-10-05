@@ -23,3 +23,11 @@
         state: absent
       with_items:
         - "{{default_home_dir}}/.ssh/cluster_ssh_config"      
+
+    - name: Remove installation dir
+      file: 
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{default_install_dir}}"      
+

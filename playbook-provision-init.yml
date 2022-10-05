@@ -12,22 +12,18 @@
         state: directory
         mode: "g+rw"
       with_items:
-        # - "{{ default_home_dir }}/.ssh"      
         - "{{ default_install_dir }}"      
-      when: exp_initialized is not defined
 
 
     - name: Copy default tmux
       copy:
         src: templates/tmux.conf
         dest: "{{ default_install_dir }}/tmux.conf"
-      when: exp_initialized is not defined
 
     - name: Copy python package dependency list
       copy:
         src: templates/python-dependencies.txt
         dest: "{{ default_install_dir }}/dependencies.txt"
-      when: exp_initialized is not defined
 
     - name: Ensure presence of profile
       file: state=touch path="{{ default_home_dir }}/.profile"
@@ -45,34 +41,31 @@
       import_tasks: tasks/task-asdf-install-python.yaml
 
     # ensure the tasks in this file is done only once.
-    - name: "Define that the init tasks was done."
-      set_fact:
-        exp_initialized: True
-      when: exp_initialized is not defined
+    # - name: "Define that the init tasks was done."
+    #   set_fact:
+    #     exp_initialized: True
+    #   when: exp_initialized is not defined
 
     - name: Generate node ssh key
       delegate_to: 127.0.0.1
       run_once: yes
       community.crypto.openssh_keypair:
         path: "./{{key_name}}"
-      when: exp_initialized is not defined
 
     - name: Copy ssh keys to the cluster nodes
       copy:
         src: "{{item}}"
-        dest: "{{ default_home_dir }}/"
+        dest: "{{ default_install_dir }}/"
         mode: '0600'
       with_items:
         - "{{key_name}}"
         - "{{key_name}}.pub"
-      when: exp_initialized is not defined
 
     - name: Set authorized key took from file
       authorized_key:
         user: "{{ default_user }}"
         state: present
         key: "{{ lookup('file', '{{key_name}}.pub') }}"
-      when: exp_initialized is not defined
 
     - name: Create SSH config file
       ansible.builtin.template:
