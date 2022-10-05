@@ -1,0 +1,50 @@
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+
+  tasks:
+    - name: Create environment folder
+      file: 
+        path: "{{ item }}"
+        state: directory
+        mode: "g+rw"
+      with_items:
+        - "{{ default_install_dir }}"      
+      when: exp_initialized is not defined
+
+
+    - name: Copy default tmux
+      copy:
+        src: templates/tmux.conf
+        dest: "{{ default_install_dir }}/tmux.conf"
+      when: exp_initialized is not defined
+
+    - name: Copy python package dependency list
+      copy:
+        src: templates/python-dependencies.txt
+        dest: "{{ default_install_dir }}/dependencies.txt"
+      when: exp_initialized is not defined
+
+    - name: Ensure presence of profile
+      file: state=touch path="{{ default_home_dir }}/.profile"
+
+    - name: Ensure presence of bashrc
+      file: state=touch path="{{ default_home_dir }}/.bashrc"
+
+    - name: Install asdf
+      import_tasks: tasks/task-asdf-install.yaml
+
+    - name: Install dependencies - Java
+      import_tasks: tasks/task-asdf-install-java.yaml
+
+    - name: Install dependencies - Python
+      import_tasks: tasks/task-asdf-install-python.yaml
+
+    # ensure the tasks in this file is done only once.
+    - name: "Define that the init tasks was done."
+      set_fact:
+        exp_initialized: True
+      when: exp_initialized is not defined

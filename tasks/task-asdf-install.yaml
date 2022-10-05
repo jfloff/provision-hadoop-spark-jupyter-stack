@@ -1,0 +1,20 @@
+---
+
+  - name: Checkout ASDF ({{asdf_version}})
+    git:
+      repo: https://github.com/asdf-vm/asdf.git
+      dest: "~/.asdf"
+      force: yes
+      version: "{{asdf_version}}"
+
+  - name: Install ASDF on user's profile
+    lineinfile: 
+      path: "{{ item }}"
+      regexp: '.*asdf.sh'
+      line: '. $HOME/.asdf/asdf.sh'
+      create: yes
+      state: present
+    with_items:
+      - ~/.bashrc
+      - ~/.bash_profile
+      - ~/.zshrc

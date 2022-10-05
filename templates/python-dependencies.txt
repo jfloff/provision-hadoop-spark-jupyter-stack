@@ -1,0 +1,6 @@
+matplotlib 
+pandas 
+seaborn 
+pyarrow 
+spark-nlp 
+pyyaml

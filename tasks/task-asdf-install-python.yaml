@@ -1,0 +1,26 @@
+---
+  - name: Add python build dependencies
+    become: yes
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - build-essential
+      - libbz2-dev
+      - libssl-dev
+      - libffi-dev
+      - libsqlite3-dev
+      - liblzma-dev
+
+  - name: Install Python plugin for ASDF and Python {{python_version}}
+    shell: >
+       export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
+       asdf plugin-add python;
+       asdf install python {{python_version}};
+       asdf global python {{python_version}};
+  
+  - name: Install Python dependencies
+    shell: >
+       export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
+       python -m pip install --upgrade pip;
+       python -m pip install -r "{{ default_install_dir  }}/dependencies.txt";
