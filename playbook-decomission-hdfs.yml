@@ -10,11 +10,10 @@
 
   tasks:
 
-    - name: Remove folders
+    - name: Remove hadoop folders
       file: 
         path: "{{ item }}"
-        state: directory
-        mode: "g+rw"
+        state: absent
       with_items:
         - "{{ hadoop_home_dir }}"      
         - "{{ hadoop_hdfs_data_dir }}"      

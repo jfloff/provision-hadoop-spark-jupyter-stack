@@ -1,0 +1,25 @@
+---
+- import_playbook: playbook-decomission-spark.yml
+- import_playbook: playbook-decomission-hdfs.yml
+
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+
+  tasks:
+
+    - name: Remove ssh cluster configuration
+      ansible.builtin.lineinfile:
+        path: "{{ default_home_dir }}/.ssh/config"      
+        line: "Include {{default_home_dir}}/.ssh/cluster_ssh_config"
+        state: absent
+
+    - name: Remove ssh cluster file
+      file: 
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{default_home_dir}}/.ssh/cluster_ssh_config"      

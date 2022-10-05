@@ -66,3 +66,11 @@
       ansible.builtin.template:
         src: templates/hadoop/yarn-site.xml.j2
         dest: "{{hadoop_conf_dir}}/yarn-site.xml"
+
+    - name: Format HDFS
+      run_once: yes 
+      delegate_to: "{{groups['hdfs_namenode'][0]}}"
+      ansible.builtin.shell: |
+        {{hadoop_home_dir}}/bin/hadoop namenode -format
+      args:
+        executable: /bin/bash

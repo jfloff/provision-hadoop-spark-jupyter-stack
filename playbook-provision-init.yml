@@ -12,7 +12,7 @@
         state: directory
         mode: "g+rw"
       with_items:
-        - "{{ default_home_dir }}/.ssh"      
+        # - "{{ default_home_dir }}/.ssh"      
         - "{{ default_install_dir }}"      
       when: exp_initialized is not defined
 
@@ -54,22 +54,33 @@
       delegate_to: 127.0.0.1
       run_once: yes
       community.crypto.openssh_keypair:
-        path: ./id_ssh_rsa_hadoop_cluster
+        path: "./{{key_name}}"
       when: exp_initialized is not defined
 
     - name: Copy ssh keys to the cluster nodes
       copy:
         src: "{{item}}"
-        dest: "{{ default_home_dir }}/.ssh"
+        dest: "{{ default_home_dir }}/"
         mode: '0600'
       with_items:
-        - id_ssh_rsa_hadoop_cluster
-        - id_ssh_rsa_hadoop_cluster.pub
+        - "{{key_name}}"
+        - "{{key_name}}.pub"
       when: exp_initialized is not defined
 
     - name: Set authorized key took from file
       authorized_key:
         user: "{{ default_user }}"
         state: present
-        key: "{{ lookup('file', 'id_ssh_rsa_hadoop_cluster.pub') }}"
+        key: "{{ lookup('file', '{{key_name}}.pub') }}"
       when: exp_initialized is not defined
+
+    - name: Create SSH config file
+      ansible.builtin.template:
+        src: templates/spark/cluster_ssh_config.j2
+        dest: "{{default_home_dir}}/.ssh/cluster_ssh_config"
+
+    - name: Include extra ssh hosts in the default config
+      ansible.builtin.lineinfile:
+        path: "{{ default_home_dir }}/.ssh/config"      
+        line: "Include {{default_home_dir}}/.ssh/cluster_ssh_config"
+        create: yes

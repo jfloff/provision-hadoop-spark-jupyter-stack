@@ -1,5 +1,5 @@
 ---
-- hosts: hdfs_namenode
+- hosts: spark_master
   become: no
   any_errors_fatal: true
   gather_facts: no
@@ -7,12 +7,12 @@
       - vars.yaml
 
   tasks:
-  - name: Stop HDFS
+  - name: Stop Spark
     ignore_errors: yes
     ansible.builtin.shell: |
-      {{hadoop_home_dir}}/sbin/stop-yarn.sh
+      {{spark_home_dir}}/sbin/stop-workers.sh
       sleep 2
-      {{hadoop_home_dir}}/sbin/stop-dfs.sh
+      {{spark_home_dir}}/sbin/stop-master.sh
 
     args:
       executable: /bin/bash

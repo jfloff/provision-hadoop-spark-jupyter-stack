@@ -156,7 +156,7 @@ export HADOOP_OS_TYPE=${HADOOP_OS_TYPE:-$(uname -s)}
 
 # Options to pass to SSH when one of the "log into a host and
 # start/stop daemons" scripts is executed
-export HADOOP_SSH_OPTS="-i $HOME/.ssh/id_ssh_rsa_hadoop_cluster -o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=10s"
+export HADOOP_SSH_OPTS="-i {{key_path}}/{{key_name}} -o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=10s"
 
 # The built-in ssh handler will limit itself to 10 simultaneous connections.
 # For pdsh users, this sets the fanout size ( -f )

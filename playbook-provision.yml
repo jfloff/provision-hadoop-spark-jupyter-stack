@@ -1,3 +1,26 @@
+---
 # call init
+- import_playbook: playbook-provision-init.yml
 # call hdfs 
+- import_playbook: playbook-provision-hdfs.yml
 # call spark
+- import_playbook: playbook-provision-spark.yml
+
+
+
+- hosts: hdfs_namenode
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+# https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
+  tasks:
+
+
+    - name: Upload Spark jars to hdfs
+      ansible.builtin.shell: |
+        {{hadoop_home_dir}}/bin/hdfs dfs -mkdir -p /user/spark/share/lib
+        {{hadoop_home_dir}}/bin/hadoop fs -put {{spark_home_dir}}/jars/* /user/spark/share/lib/
+      args:
+        executable: /bin/bash

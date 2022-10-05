@@ -8,11 +8,10 @@
 
   tasks:
   - name: Stop HDFS
-    ignore_errors: yes
     ansible.builtin.shell: |
-      {{hadoop_home_dir}}/sbin/stop-yarn.sh
+      {{hadoop_home_dir}}/sbin/start-master.sh
       sleep 2
-      {{hadoop_home_dir}}/sbin/stop-dfs.sh
+      {{hadoop_home_dir}}/sbin/start-workers.sh
 
     args:
       executable: /bin/bash

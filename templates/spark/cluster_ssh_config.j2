@@ -1,0 +1,10 @@
+{% for host in groups['spark_master']| union(groups['spark_workers'])  %}
+
+Host {{host}}
+   User {{default_user}}
+   IdentityFile {{ key_path }}/{{key_name}}
+   Hostname {{ host }}
+   StrictHostKeyChecking no
+   ServerAliveInterval 120
+
+{% endfor %} 
