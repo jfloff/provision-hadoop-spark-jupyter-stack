@@ -1,5 +1,5 @@
 ---
-- hosts: hdfs_namenode
+- hosts: jupyter_service
   become: no
   any_errors_fatal: true
   gather_facts: no
@@ -7,19 +7,10 @@
       - vars.yaml
 
   tasks:
-  - name: Start Jupyter
-  # https://github.com/DIYBigData/personal-compute-cluster/blob/master/spark-qfs-swarm/jupyter-server/Dockerfile
-    ansible.builtin.shell: |
-      GRAPHFRAMES_VERSION=0.8.2-spark3.2-s_2.12
-      SPARK_NLP_VERSION=spark-nlp-spark32_2.12:3.4.4
 
-      XDG_RUNTIME_DIR=/home/spark/jupyter/runtime 
-      PYSPARK_DRIVER_PYTHON=jupyter
-      PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --port=7777 --notebook-dir=/home/spark/jupyter/notebooks --ip=0.0.0.0 --NotebookApp.password='' --NotebookApp.token='' --NotebookApp.iopub_data_rate_limit=1.0e10" 
-
-      $SPARK_HOME/bin/pyspark  --packages graphframes:graphframes:$GRAPHFRAMES_VERSION,com.johnsnowlabs.nlp:$SPARK_NLP_VERSION \
-                               --repositories https://repos.spark-packages.org/ \
-                               --master spark://spark-master:7077
-    args:
-      executable: /bin/bash
-
+    - name: Start Jupyter notebook
+      shell: 
+        tmux -f {{ default_install_dir }}/tmux.conf new-session -d -s tjupyter "./start_jupyter.sh && exit"
+      args:
+        chdir: '{{ default_install_dir }}'
+        executable: /bin/bash

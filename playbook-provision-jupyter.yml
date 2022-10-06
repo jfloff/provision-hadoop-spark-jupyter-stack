@@ -1,5 +1,5 @@
 ---
-- hosts: hdfs_namenode
+- hosts: jupyter_service
   become: no
   any_errors_fatal: true
   gather_facts: no
@@ -31,3 +31,17 @@
         jupyter nbextension enable execute_time/ExecuteTime 
       args:
         executable: /bin/bash
+
+    - name: Create Notebook dir
+      file: 
+        path: "{{ item }}"
+        state: directory
+        mode: "g+rw"
+      with_items:
+        - "{{ jupyter_data_dir }}"      
+
+    - name: Deploy Jupyter startup script
+      ansible.builtin.template:
+        src: templates/jupyter/start-jupyter.sh.j2
+        dest: "{{default_install_dir}}/start-jupyter.sh"
+        mode: u=rwx,g=rx,o=rx
