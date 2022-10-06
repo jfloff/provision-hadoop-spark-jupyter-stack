@@ -8,6 +8,11 @@
 # https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
   tasks:
 
+    - name: Copy default tmux
+      copy:
+        src: templates/tmux.conf
+        dest: "{{ default_install_dir }}/tmux.conf"
+
 
     - name: Install Jupyter
       ansible.builtin.shell: |

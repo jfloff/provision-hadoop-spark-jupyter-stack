@@ -17,5 +17,5 @@
           echo "Jupyter is already running"; \
         fi;
       args:
-        chdir: '{{ default_install_dir }}'
+        chdir: "{{ default_install_dir }}"
         executable: /bin/bash

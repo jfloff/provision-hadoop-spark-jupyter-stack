@@ -71,6 +71,6 @@
       run_once: yes 
       delegate_to: "{{groups['hdfs_namenode'][0]}}"
       ansible.builtin.shell: |
-        {{hadoop_home_dir}}/bin/hadoop namenode -format
+        {{hadoop_home_dir}}/bin/hadoop namenode -format -force
       args:
         executable: /bin/bash

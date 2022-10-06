@@ -11,10 +11,10 @@ This is it: a multinode environment with Hadoop, Spark and Jupyter.
 
 Change the inventory.ini to reflect the nodes of your cluster.
 Ensure nodes in the inventory have the ssh key installed on remote nodes.
-
-http://146.193.41.191:8088/cluster
-http://146.193.41.191:9870/dfshealth.html#tab-overview
-http://146.193.41.191:8080/
+Resource manager: http://146.193.41.191:8088/cluster
+Cluster overview: http://146.193.41.191:9870/dfshealth.html#tab-overview
+Spark master: http://146.193.41.191:8080/
+jupyter: http://146.193.41.191:7777/
 
 | Service          | Without Proxy                                     | With Proxy                        |
 |------------------|---------------------------------------------------|-----------------------------------|
