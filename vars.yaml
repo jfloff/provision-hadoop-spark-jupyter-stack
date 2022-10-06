@@ -36,3 +36,13 @@ spark_driver_memory: 5g
 # jupyter
 jupyter_data_dir: "{{ default_install_dir }}/jupyter_notebooks"
 jupyter_port: 7777
+
+
+
+# dataset
+hdfs_dataset_path: /dataset
+local_dataset_path: /home/jfloff/nas/alibaba-dataset #"{{default_install_dir}}"
+dataset_files:
+  # - breweries.csv
+  # - MSCallGraph_traceid_timestamp_rpcid_um_rpctype_dm.csv
+  - MSCallGraph_traceid_timestamp_rpcid_um_rpctype_dm.sample.csv
