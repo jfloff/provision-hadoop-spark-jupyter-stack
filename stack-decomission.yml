@@ -1,4 +1,5 @@
 ---
+- import_playbook: playbook-jupyter-stop.yml
 - import_playbook: playbook-decomission-spark.yml
 - import_playbook: playbook-decomission-hdfs.yml
 

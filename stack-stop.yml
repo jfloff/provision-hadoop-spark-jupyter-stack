@@ -1,0 +1,4 @@
+---
+- import_playbook: playbook-jupyter-stop.yml
+- import_playbook: playbook-spark-stop.yml
+- import_playbook: playbook-hdfs-stop.yml
