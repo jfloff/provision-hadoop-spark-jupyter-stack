@@ -9,12 +9,14 @@
   tasks:
   - name: Start Spark Master
     ansible.builtin.shell: |
-      {{spark_home_dir}}/sbin/start-master.sh
+      process_is_running=$(ps -ax | grep -E 'org.apache.spark.deploy.master.Master' | grep -v grep | awk '{print $1}')
+      if [ -z "${process_is_running}" ]; then  {{spark_home_dir}}/sbin/start-master.sh; else echo "Spark Master is already running"; fi
     args:
       executable: /bin/bash
 
   - name: Spark Workers
     ansible.builtin.shell: |
-      {{spark_home_dir}}/sbin/start-workers.sh
+      process_is_running=$(ps -ax | grep -E 'org.apache.spark.deploy.worker.Worker' | grep -v grep | awk '{print $1}')
+      if [ -z "${process_is_running}" ]; then  {{spark_home_dir}}/sbin/start-workers.sh; else echo "Spark Master is already running"; fi   
     args:
       executable: /bin/bash

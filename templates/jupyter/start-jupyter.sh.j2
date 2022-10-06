@@ -7,6 +7,14 @@ SPARK_NLP_VERSION=spark-nlp-spark32_2.12:3.4.4
 PYSPARK_DRIVER_PYTHON=jupyter
 PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --port="{{jupyter_port}}" --notebook-dir="{{jupyter_data_dir}}" --ip=0.0.0.0 --NotebookApp.password='' --NotebookApp.token='' --NotebookApp.iopub_data_rate_limit=1.0e10" 
 . {{spark_conf_dir}}/spark-env.sh
-pyspark  --packages graphframes:graphframes:$GRAPHFRAMES_VERSION,com.johnsnowlabs.nlp:$SPARK_NLP_VERSION \
+
+process_is_running=$(ps -ax | grep -E 'jupyter-notebook' | grep -v grep | awk '{print $1}')
+
+
+if [ -z ${process_is_running} ]; then
+    pyspark  --packages graphframes:graphframes:$GRAPHFRAMES_VERSION,com.johnsnowlabs.nlp:$SPARK_NLP_VERSION \
                         --repositories https://repos.spark-packages.org/ \
                         --master "spark://{{ groups['spark_master'][0] }}:{{spark_master_port}}"
+else
+    echo "Jupyter is already running"
+fi

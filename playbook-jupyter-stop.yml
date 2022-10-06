@@ -9,7 +9,7 @@
   tasks:
   - name: Stop WORKER processes
     set_fact:
-      process_to_kill: "'jupyter-notebook|tjupyter'"
+      process_to_kill: "'jupyter-notebook|tjupyter|start-jupyter'"
 
   - name: Run tasks to stop Jupyter processes
     include_tasks: tasks/task-stop-process.yml  

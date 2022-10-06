@@ -9,8 +9,13 @@
   tasks:
 
     - name: Start Jupyter notebook
-      shell: 
-        tmux -f {{ default_install_dir }}/tmux.conf new-session -d -s tjupyter "./start_jupyter.sh && exit"
+      shell: |
+        process_is_running=$(ps -ax | grep -E 'tjupyter' | grep -v grep | awk '{print $1}');
+        if [ -z "${process_is_running}" ]; then  \
+          tmux -f "{{ default_install_dir }}/tmux.conf" new-session -d -s tjupyter "./start-jupyter.sh && exit"; \
+        else \
+          echo "Jupyter is already running"; \
+        fi;
       args:
         chdir: '{{ default_install_dir }}'
         executable: /bin/bash
