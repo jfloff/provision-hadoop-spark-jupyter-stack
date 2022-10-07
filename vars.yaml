@@ -8,7 +8,8 @@ default_install_dir: "{{default_home_dir}}/pluribus_alibaba_analysis"
 asdf_version: v0.10.2
 java_version: zulu-8.64.0.19
 java_home: "{{default_home_dir}}/.asdf/installs/java/{{java_version}}"
-python_version: 3.9.12
+# python install must match the pyspark build
+python_version: 3.7.0 
 
 # ssh conf
 key_name: id_ssh_rsa_hadoop_cluster
