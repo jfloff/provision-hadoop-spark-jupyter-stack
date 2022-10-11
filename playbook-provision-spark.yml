@@ -28,6 +28,14 @@
         dest: "{{ default_install_dir }}"
         remote_src: yes
 
+    - name: Create Spark data dir
+      file: 
+        path: "{{ item }}"
+        state: directory
+        mode: "g+rw"
+      with_items:
+        - "{{ spark_local_dirs }}"      
+
     - name: Configure Spark with HDFS Hadoop core-site configuration
       ansible.builtin.template:
         src: templates/hadoop/core-site.xml.j2

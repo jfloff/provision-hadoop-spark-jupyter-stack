@@ -37,6 +37,7 @@ HADOOP_CONF_DIR={{hadoop_conf_dir}}
 # - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node
 # - SPARK_PUBLIC_DNS, to set the public DNS name of the driver program
 # - SPARK_LOCAL_DIRS, storage directories to use on this node for shuffle and RDD data
+export SPARK_LOCAL_DIRS={{spark_local_dirs}}
 # - MESOS_NATIVE_JAVA_LIBRARY, to point to your libmesos.so if you use Mesos
 
 # Options read in any mode
