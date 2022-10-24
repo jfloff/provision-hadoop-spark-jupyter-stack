@@ -2,14 +2,14 @@
 # ==========================================================================================
 # System default
 # ==========================================================================================
-default_user: "dporto"
+default_user: "jfloff"
 default_home_dir: "/home/{{default_user}}"
 default_install_dir: "{{default_home_dir}}/pluribus_alibaba_analysis"
 asdf_version: v0.10.2
 java_version: zulu-8.64.0.19
 java_home: "{{default_home_dir}}/.asdf/installs/java/{{java_version}}"
 # python install must match the pyspark build
-python_version: 3.7.0 
+python_version: 3.7.0
 
 # ssh conf
 key_name: id_ssh_rsa_hadoop_cluster
@@ -32,7 +32,7 @@ spark_version_sha256: 306b550f42ce1b06772d6084c545ef8448414f2bf451e0b1175405488f
 spark_home_dir: "{{default_install_dir}}/spark-{{spark_version}}-bin-hadoop3"
 spark_conf_dir: "{{spark_home_dir}}/conf"
 spark_master_port: 7077
-spark_driver_memory: 5g
+spark_driver_memory: 25g
 spark_local_dirs: "{{default_install_dir}}/spark_tmp"
 
 
