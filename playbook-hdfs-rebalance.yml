@@ -1,0 +1,16 @@
+#! /usr/local/bin/ansible-playbook
+
+- hosts: hdfs_namenode
+  become: no
+  gather_facts: no
+  any_errors_fatal: true
+  vars_files:
+    - vars.yaml
+
+  tasks:
+
+    - name: Rebalance HDFS
+      ansible.builtin.shell: |
+        {{hadoop_home_dir}}/bin/hdfs balancer
+      args:
+        executable: /bin/bash
