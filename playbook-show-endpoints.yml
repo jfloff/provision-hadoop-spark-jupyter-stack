@@ -14,9 +14,9 @@
       debug: 
         msg:  "{{item}}"
       with_items:
-        - "Hadoop overview:   http://{{groups['hdfs_namenode'][0]}}:9870"
-        - "Hadoop scheduler:  http://{{groups['hdfs_namenode'][0]}}:8088"
-        - "Spark overview:    http://{{groups['hdfs_namenode'][0]}}:8080"
-        - "Jupyter home:      http://{{groups['hdfs_namenode'][0]}}:7777"
+        - "Hadoop overview:   http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:9870"
+        - "Hadoop scheduler:  http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:8088"
+        - "Spark overview:    http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:8080"
+        - "Jupyter home:      http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:7777"
 
   
