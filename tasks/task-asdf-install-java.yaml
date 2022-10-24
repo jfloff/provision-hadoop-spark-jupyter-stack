@@ -1,5 +1,6 @@
 ---
   - name: Install Java plugin for ASDF and Java {{java_version}}
+    ignore_errors: yes
     shell: >
        export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
        asdf plugin-add java https://github.com/halcyon/asdf-java.git;
