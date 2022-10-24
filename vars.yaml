@@ -33,7 +33,7 @@ spark_home_dir: "{{default_install_dir}}/spark-{{spark_version}}-bin-hadoop3"
 spark_conf_dir: "{{spark_home_dir}}/conf"
 spark_master_port: 7077
 spark_driver_memory: 5g
-spark_local_dir: "{{default_install_dir}}/spark_tmp"
+spark_local_dirs: "{{default_install_dir}}/spark_tmp"
 
 
 # jupyter

@@ -1,7 +1,7 @@
 - hosts: all
   become: no
   any_errors_fatal: true
-  gather_facts: no
+  gather_facts: yes # required for detecting os
   vars_files:
       - vars.yaml
 
@@ -77,3 +77,12 @@
         path: "{{ default_home_dir }}/.ssh/config"      
         line: "Include {{default_home_dir}}/.ssh/cluster_ssh_config"
         create: yes
+
+    - name: Touch the same file, but add/remove some permissions
+      ansible.builtin.file:
+        path: "{{item}}"
+        state: touch
+        mode: '0600'        
+      with_items:
+        - "{{default_home_dir}}/.ssh/cluster_ssh_config"
+        - "{{default_home_dir}}/.ssh/config"

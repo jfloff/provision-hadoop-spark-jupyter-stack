@@ -1,5 +1,5 @@
 ---
-  - name: Add python build dependencies
+  - name: Add python build dependencies - Debian based systems
     become: yes
     package:
       name: "{{ item }}"
@@ -11,6 +11,21 @@
       - libffi-dev
       - libsqlite3-dev
       - liblzma-dev
+    when: ansible_os_family == "Debian"
+
+  - name: Add python build dependencies - RedHat based systems
+    become: yes
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - "@Development tools"
+      - bzip2-devel
+      - openssl-libs
+      - libffi-devel
+      - sqlite-devel
+      - xz-devel
+    when: ansible_os_family == "RedHat"
 
   - name: Install Python plugin for ASDF and Python {{python_version}}
     shell: >
@@ -19,8 +34,16 @@
        asdf install python {{python_version}};
        asdf global python {{python_version}};
   
-  - name: Install Python dependencies
+  - name: Install Python dependencies for Debian systems
     shell: >
        export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
        python -m pip install --upgrade pip;
        python -m pip install -r "{{ default_install_dir  }}/dependencies.txt";
+    when: ansible_os_family == "Debian"
+
+  - name: Install Python dependencies for RedHat systems
+    shell: >
+       export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
+       pip install --upgrade pip;
+       pip install -r "{{ default_install_dir  }}/dependencies.txt";
+    when: ansible_os_family == "RedHat"
