@@ -5,6 +5,10 @@
        export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
        asdf plugin-add java https://github.com/halcyon/asdf-java.git;
        asdf plugin update java 38d917e
+
+  - name: Install Java plugin for ASDF and Java {{java_version}}
+    shell: >
+       export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
        asdf install java {{java_version}};
        asdf global java {{java_version}};
 
