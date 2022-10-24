@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+
+  tasks:
+ 
+    - name: endpoints
+      delegate_to: 127.0.0.1 
+      run_once: yes
+      debug: 
+        msg:  "{{item}}"
+      with_items:
+        - "Hadoop overview:   http://{{groups['hdfs_namenode'][0]}}:9870"
+        - "Hadoop scheduler:  http://{{groups['hdfs_namenode'][0]}}:8088"
+        - "Spark overview:    http://{{groups['hdfs_namenode'][0]}}:8080"
+        - "Jupyter home:      http://{{groups['hdfs_namenode'][0]}}:7777"
+
+  
