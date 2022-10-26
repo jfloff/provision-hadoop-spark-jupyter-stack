@@ -11,6 +11,9 @@
       - libffi-dev
       - libsqlite3-dev
       - liblzma-dev
+      - libzip-dev
+      - libncurses-dev
+      - libreadline-dev
     when: ansible_os_family == "Debian"
 
   - name: Add python build dependencies - RedHat based systems
