@@ -27,12 +27,13 @@ hadoop_namenode_port: 9000
 hadoop_replication: 3
 
 # spark confs
-spark_version: 3.3.0
+spark_version: 3.3.1
 spark_version_sha256: 306b550f42ce1b06772d6084c545ef8448414f2bf451e0b1175405488f2a322f
 spark_home_dir: "{{default_install_dir}}/spark-{{spark_version}}-bin-hadoop3"
 spark_conf_dir: "{{spark_home_dir}}/conf"
 spark_master_port: 7077
 spark_driver_memory: 25g
+spark_driver_max_result_size: 5MB  
 spark_local_dirs: "{{default_install_dir}}/spark_tmp"
 
 
