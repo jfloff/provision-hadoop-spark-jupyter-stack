@@ -19,16 +19,16 @@
 # This is useful for setting default environmental settings.
 
 # Example:
-# spark.master                     spark://master:7077
-# spark.eventLog.enabled           true
-# spark.eventLog.dir               hdfs://namenode:8021/directory
-# spark.serializer                 org.apache.spark.serializer.KryoSerializer
-# spark.driver.memory              5g
-# spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+# spark.master                      spark://master:7077
+# spark.eventLog.enabled            true
+# spark.eventLog.dir                hdfs://namenode:8021/directory
+# spark.serializer                  org.apache.spark.serializer.KryoSerializer
+# spark.driver.memory               5g
+# spark.executor.extraJavaOptions   -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
-spark.master                     spark://{{ groups['spark_master'][0] }}:{{spark_master_port}}
-spark.driver.memory              {{spark_driver_memory}}
-spark.driver.maxResultSize	{{spark_driver_max_result_size}}
-spark.sql.adaptive.enabled true
+spark.master                        spark://{{ groups['spark_master'][0] }}:{{spark_master_port}}
+spark.driver.memory                 {{spark_driver_memory}}
+spark.driver.maxResultSize	        {{spark_driver_max_result_size}}
+spark.sql.adaptive.enabled          true
 spark.sql.adaptive.skewJoin.enabled true
-
+spark.network.timeout               50000s
