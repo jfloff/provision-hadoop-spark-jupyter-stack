@@ -8,6 +8,12 @@
     - vars.yaml
 
   tasks:
+    # Specially in IOException situations safe mode is enabled
+    - name: Turn off safe mode
+      ansible.builtin.shell: |
+        {{hadoop_home_dir}}/bin/hdfs dfsadmin -safemode leave
+      args:
+        executable: /bin/bash
 
     - name: Rebalance HDFS
       ansible.builtin.shell: |
