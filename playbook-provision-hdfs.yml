@@ -27,48 +27,48 @@
         remote_src: yes
 
     - name: Create HDFS data dir
-      file: 
+      file:
         path: "{{ item }}"
         state: directory
         mode: "g+rw"
       with_items:
-        - "{{ hadoop_hdfs_data_dir }}"      
-        - "{{ hadoop_namenode_dir }}"      
-        - "{{ hadoop_pid_dir }}"      
-        - "{{ hadoop_temp_dir }}"      
+        - "{{ hadoop_hdfs_data_dir }}"
+        - "{{ hadoop_namenode_dir }}"
+        - "{{ hadoop_pid_dir }}"
+        - "{{ hadoop_temp_dir }}"
 
     - name: Update Hadoop core-site configuration
       ansible.builtin.template:
         src: templates/hadoop/core-site.xml.j2
-        dest: "{{hadoop_conf_dir}}/core-site.xml"
+        dest: "{{ hadoop_conf_dir }}/core-site.xml"
 
     - name: Update Hadoop env configuration
       ansible.builtin.template:
         src: templates/hadoop/hadoop-env.sh.j2
-        dest: "{{hadoop_conf_dir}}/hadoop-env.sh"
+        dest: "{{ hadoop_conf_dir }}/hadoop-env.sh"
 
     - name: Update Hadoop hdfs site configuration
       ansible.builtin.template:
         src: templates/hadoop/hdfs-site.xml.j2
-        dest: "{{hadoop_conf_dir}}/hdfs-site.xml"
+        dest: "{{ hadoop_conf_dir }}/hdfs-site.xml"
 
     - name: Update Hadoop mapred site configuration
       ansible.builtin.template:
         src: templates/hadoop/mapred-site.xml.j2
-        dest: "{{hadoop_conf_dir}}/mapred-site.xml"
+        dest: "{{ hadoop_conf_dir }}/mapred-site.xml"
 
     - name: Update Hadoop workers configuration
       ansible.builtin.template:
         src: templates/hadoop/workers.j2
-        dest: "{{hadoop_conf_dir}}/workers"
+        dest: "{{ hadoop_conf_dir }}/workers"
 
     - name: Update Hadoop yarn configuration
       ansible.builtin.template:
         src: templates/hadoop/yarn-site.xml.j2
-        dest: "{{hadoop_conf_dir}}/yarn-site.xml"
+        dest: "{{ hadoop_conf_dir }}/yarn-site.xml"
 
     - name: Format HDFS
-      run_once: yes 
+      run_once: yes
       delegate_to: "{{groups['hdfs_namenode'][0]}}"
       ansible.builtin.shell: |
         {{hadoop_home_dir}}/bin/hadoop namenode -format -force
