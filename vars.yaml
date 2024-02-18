@@ -33,7 +33,7 @@ spark_home_dir: "{{default_install_dir}}/spark-{{spark_version}}-bin-hadoop3"
 spark_conf_dir: "{{spark_home_dir}}/conf"
 spark_master_port: 7077
 spark_driver_memory: 25g
-spark_driver_max_result_size: 5MB
+spark_driver_max_result_size: 25MB
 spark_local_dirs: "{{default_install_dir}}/spark_tmp"
 java_local_dirs: "{{default_install_dir}}/java_tmp"
 
