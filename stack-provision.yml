@@ -1,10 +1,11 @@
 ---
 # call init
 - import_playbook: playbook-provision-init.yml
-# call hdfs 
+# call hdfs
 - import_playbook: playbook-provision-hdfs.yml
 # call spark
 - import_playbook: playbook-provision-spark.yml
+- import_playbook: playbook-provision-spark-config.yml
 # call jupyter
 - import_playbook: playbook-provision-jupyter.yml
 

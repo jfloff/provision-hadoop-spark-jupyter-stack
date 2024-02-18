@@ -1,5 +1,6 @@
 ---
 - import_playbook: playbook-hdfs-start.yml
+- import_playbook: playbook-provision-spark-config.yml
 - import_playbook: playbook-spark-start.yml
 - import_playbook: playbook-jupyter-start.yml
 - import_playbook: playbook-show-endpoints.yml
