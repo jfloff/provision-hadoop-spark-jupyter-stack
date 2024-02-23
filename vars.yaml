@@ -48,6 +48,5 @@ jupyter_port: 7777
 hdfs_dataset_path: /dataset
 local_dataset_path: /home/jfloff/nas/alibaba-dataset #"{{default_install_dir}}"
 dataset_files:
-  # - breweries.csv
   # - MSCallGraph_traceid_timestamp_rpcid_um_rpctype_dm.csv
   - MSCallGraph_traceid_timestamp_rpcid_um_rpctype_dm.sample.csv

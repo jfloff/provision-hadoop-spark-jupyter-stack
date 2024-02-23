@@ -1,7 +1,7 @@
 #! /usr/local/bin/ansible-playbook
 
 - import_playbook: playbook-hdfs-start.yml
-    
+
 - hosts: hdfs_namenode
   become: no
   gather_facts: no
@@ -10,14 +10,6 @@
     - vars.yaml
 
   tasks:
-
-    - name: Brewery dataset to remote node
-      copy:
-        src: data/breweries.csv
-        dest: "{{ local_dataset_path }}/breweries.csv"
-      ignore_errors: yes
-
-
     - name: Create dataset path on HDFS
       ansible.builtin.shell: |
         {{hadoop_home_dir}}/bin/hdfs dfs -mkdir -p {{hdfs_dataset_path}}
@@ -30,5 +22,4 @@
       args:
         executable: /bin/bash
       with_items:
-        - "{{ dataset_files }}"
-
+        - "{{ dataset_files }}"
