@@ -5,9 +5,9 @@
   gather_facts: no
   vars_files:
       - vars.yaml
-# https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
-  tasks:
 
+  # https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
+  tasks:
   - name: Drop memory caches
     become: yes
     shell: >
