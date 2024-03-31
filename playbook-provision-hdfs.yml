@@ -7,6 +7,17 @@
       - vars.yaml
 # https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
   tasks:
+    - name: Remove hadoop folders
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{ hadoop_home_dir }}"
+        - "{{ hadoop_hdfs_data_dir }}"
+        - "{{ hadoop_namenode_dir }}"
+        - "{{ hadoop_pid_dir }}"
+        - "{{ hadoop_temp_dir }}"
+
     - name: Download Hadoop {{hadoop_version}}
       delegate_to: 127.0.0.1
       run_once: yes
