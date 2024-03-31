@@ -19,10 +19,9 @@
   gather_facts: no
   vars_files:
       - vars.yaml
-# https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
+
+  # https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
   tasks:
-
-
     - name: Upload Spark jars to hdfs
       ansible.builtin.shell: |
         {{hadoop_home_dir}}/bin/hdfs dfs -mkdir -p /user/spark/share/lib

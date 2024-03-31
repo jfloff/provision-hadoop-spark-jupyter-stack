@@ -5,15 +5,15 @@
   gather_facts: no
   vars_files:
       - vars.yaml
-# https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
-# https://medium.com/codex/setting-up-a-multi-node-apache-spark-cluster-on-apache-hadoop-and-apache-hive-412764ab6881
+
+  # https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
+  # https://medium.com/codex/setting-up-a-multi-node-apache-spark-cluster-on-apache-hadoop-and-apache-hive-412764ab6881
   tasks:
     - name: Download Spark {{hadoop_version}}
       delegate_to: 127.0.0.1
       run_once: yes
       ansible.builtin.get_url:
-          #  https://dlcdn.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz
-        url: https://dlcdn.apache.org/spark/spark-{{spark_version}}/spark-{{spark_version}}-bin-hadoop3.tgz
+        url: https://archive.apache.org/dist/spark/spark-{{spark_version}}/spark-{{spark_version}}-bin-hadoop3.tgz
         dest: /tmp/spark-{{spark_version}}-bin-hadoop3.tgz
 
     - name: Deploy Spark bundle to remote nodes
