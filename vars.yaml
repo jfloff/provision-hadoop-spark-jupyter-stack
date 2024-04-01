@@ -37,16 +37,6 @@ spark_driver_max_result_size: 25MB
 spark_local_dirs: "{{default_install_dir}}/spark_tmp"
 java_local_dirs: "{{default_install_dir}}/java_tmp"
 
-
 # jupyter
 jupyter_data_dir: "{{ default_install_dir }}/jupyter_notebooks"
 jupyter_port: 7777
-
-
-
-# dataset
-hdfs_dataset_path: /dataset
-local_dataset_path: /home/jfloff/nas/alibaba-dataset #"{{default_install_dir}}"
-dataset_files:
-  # - MSCallGraph_traceid_timestamp_rpcid_um_rpctype_dm.csv
-  - MSCallGraph_traceid_timestamp_rpcid_um_rpctype_dm.sample.csv
