@@ -1,7 +1,8 @@
-matplotlib 
-pandas 
-seaborn 
-pyarrow 
-spark-nlp 
+matplotlib
+pandas
+seaborn
+pyarrow
+spark-nlp
 pyyaml
 hdfs
+binpacking
