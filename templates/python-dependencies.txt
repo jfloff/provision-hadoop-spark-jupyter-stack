@@ -6,3 +6,4 @@ spark-nlp
 pyyaml
 hdfs
 binpacking
+anytree
