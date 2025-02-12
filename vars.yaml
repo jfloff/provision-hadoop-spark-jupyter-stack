@@ -9,7 +9,7 @@ asdf_version: v0.10.2
 java_version: zulu-8.64.0.19
 java_home: "{{default_home_dir}}/.asdf/installs/java/{{java_version}}"
 # python install must match the pyspark build
-python_version: 3.7.0
+python_version: 3.8.20
 
 # ssh conf
 key_name: id_ssh_rsa_hadoop_cluster
