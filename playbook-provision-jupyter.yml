@@ -16,12 +16,12 @@
 
     - name: Install Jupyter
       ansible.builtin.shell: |
-       export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH";
-       python -m pip install  notebook \
+        export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH" ;
+        python -m pip install "notebook<7.0" \
                               jupyter_nbextensions_configurator \
                               jupyter_contrib_nbextensions \
-                              yapf wget
-       
+                              yapf \
+                              wget
       args:
         executable: /bin/bash
 
@@ -33,17 +33,17 @@
         jupyter nbextensions_configurator enable --user
         jupyter nbextension enable toc2/main
         jupyter nbextension enable codefolding/main
-        jupyter nbextension enable execute_time/ExecuteTime 
+        jupyter nbextension enable execute_time/ExecuteTime
       args:
         executable: /bin/bash
 
     - name: Create Notebook dir
-      file: 
+      file:
         path: "{{ item }}"
         state: directory
         mode: "g+rw"
       with_items:
-        - "{{ jupyter_data_dir }}"      
+        - "{{ jupyter_data_dir }}"
 
     - name: Deploy Jupyter startup script
       ansible.builtin.template:
