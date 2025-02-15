@@ -9,10 +9,9 @@
       - vars.yaml
 
   tasks:
-
     - name: Remove spark folders
-      file: 
+      file:
         path: "{{ item }}"
         state: absent
       with_items:
-        - "{{ spark_home_dir }}"      
+        - "{{ spark_home_dir }}"

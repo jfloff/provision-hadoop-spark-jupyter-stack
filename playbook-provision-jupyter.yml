@@ -5,7 +5,7 @@
   gather_facts: no
   vars_files:
       - vars.yaml
-# https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
+
   tasks:
 
     - name: Copy default tmux
