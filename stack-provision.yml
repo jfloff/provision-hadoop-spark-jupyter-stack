@@ -9,10 +9,6 @@
 # call jupyter
 - import_playbook: playbook-provision-jupyter.yml
 
-# to complete spark provision, we need to upload some libs to hdfs
-# start hdfs
-- import_playbook: playbook-hdfs-start.yml
-
 # - hosts: hdfs_namenode
 #   become: no
 #   any_errors_fatal: true
