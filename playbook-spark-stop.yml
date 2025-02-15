@@ -10,9 +10,6 @@
   - name: Stop Spark
     ignore_errors: yes
     ansible.builtin.shell: |
-      {{spark_home_dir}}/sbin/stop-workers.sh
-      sleep 2
-      {{spark_home_dir}}/sbin/stop-master.sh
-
+      {{spark_home_dir}}/sbin/stop-all.sh
     args:
       executable: /bin/bash

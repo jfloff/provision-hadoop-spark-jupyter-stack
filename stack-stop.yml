@@ -2,3 +2,18 @@
 - import_playbook: playbook-jupyter-stop.yml
 - import_playbook: playbook-spark-stop.yml
 - import_playbook: playbook-hdfs-stop.yml
+
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+
+  tasks:
+    - name: Ensure Hadoop is stopped
+      shell: |
+        pgrep -f "org.apache.hadoop" | xargs --no-run-if-empty kill -9
+      args:
+        executable: /bin/bash
+      ignore_errors: true

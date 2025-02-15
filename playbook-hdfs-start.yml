@@ -9,16 +9,6 @@
   tasks:
     - name: Start DFS
       ansible.builtin.shell: |
-        process_is_running=$(ps -ax | grep -E 'org.apache.hadoop.hdfs.server.namenode.NameNode' | grep -v grep | awk '{print $1}')
-        if [ -z "${process_is_running}" ]; then  {{hadoop_home_dir}}/sbin/start-dfs.sh; else echo "DFS is already running"; fi
-      register: dfs_output
-      args:
-        executable: /bin/bash
-
-    - name: Start YARN
-      ansible.builtin.shell: |
-        process_is_running=$(ps -ax | grep -E 'org.apache.hadoop.yarn.server.resourcemanager.ResourceManager' | grep -v grep | awk '{print $1}')
-        if [ -z "${process_is_running}" ]; then {{hadoop_home_dir}}/sbin/start-yarn.sh ; else echo "DFS is already running"; fi
-      register: yarn_output
+        {{hadoop_home_dir}}/sbin/start-all.sh
       args:
         executable: /bin/bash

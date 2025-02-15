@@ -1,5 +1,5 @@
 ---
-- hosts: hdfs_namenode
+- hosts: spark_master
   become: no
   any_errors_fatal: true
   gather_facts: no
@@ -7,16 +7,8 @@
       - vars.yaml
 
   tasks:
-  - name: Start Spark Master
+  - name: Start Spark
     ansible.builtin.shell: |
-      process_is_running=$(ps -ax | grep -E 'org.apache.spark.deploy.master.Master' | grep -v grep | awk '{print $1}')
-      if [ -z "${process_is_running}" ]; then  {{spark_home_dir}}/sbin/start-master.sh; else echo "Spark Master is already running"; fi
-    args:
-      executable: /bin/bash
-
-  - name: Spark Workers
-    ansible.builtin.shell: |
-      process_is_running=$(ps -ax | grep -E 'org.apache.spark.deploy.worker.Worker' | grep -v grep | awk '{print $1}')
-      if [ -z "${process_is_running}" ]; then  {{spark_home_dir}}/sbin/start-workers.sh; else echo "Spark Master is already running"; fi   
+      {{spark_home_dir}}/sbin/start-all.sh
     args:
       executable: /bin/bash
