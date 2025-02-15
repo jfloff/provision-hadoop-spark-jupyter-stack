@@ -7,16 +7,14 @@
       - vars.yaml
 
   tasks:
- 
+
     - name: endpoints
-      delegate_to: 127.0.0.1 
+      delegate_to: 127.0.0.1
       run_once: yes
-      debug: 
+      debug:
         msg:  "{{item}}"
       with_items:
         - "Hadoop overview:   http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:9870"
         - "Hadoop scheduler:  http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:8088"
         - "Spark overview:    http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:8080"
         - "Jupyter home:      http://{{hostvars[groups['hdfs_namenode'][0]].ansible_host}}:7777"
-
-  
