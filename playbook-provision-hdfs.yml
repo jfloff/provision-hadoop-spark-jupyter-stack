@@ -5,12 +5,14 @@
   gather_facts: no
   vars_files:
       - vars.yaml
-# https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
+
+  # https://medium.com/codex/running-a-multi-node-hadoop-cluster-257068e5f276
   tasks:
     - name: Remove hadoop folders
       file:
         path: "{{ item }}"
         state: absent
+        force: yes
       with_items:
         - "{{ hadoop_home_dir }}"
         - "{{ hadoop_hdfs_data_dir }}"
