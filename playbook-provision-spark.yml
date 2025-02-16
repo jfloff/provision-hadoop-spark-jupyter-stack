@@ -10,7 +10,8 @@
   # https://medium.com/codex/setting-up-a-multi-node-apache-spark-cluster-on-apache-hadoop-and-apache-hive-412764ab6881
   tasks:
     - name: Download Spark {{hadoop_version}}
-      run_once: yes
+      run_once: true
+      delegate_to: 127.0.0.1
       ansible.builtin.get_url:
         url: https://archive.apache.org/dist/spark/spark-{{spark_version}}/spark-{{spark_version}}-bin-hadoop3.tgz
         dest: /tmp/spark-{{spark_version}}-bin-hadoop3.tgz

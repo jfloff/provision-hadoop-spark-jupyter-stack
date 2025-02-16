@@ -21,7 +21,8 @@
         - "{{ hadoop_temp_dir }}"
 
     - name: Download Hadoop {{hadoop_version}}
-      run_once: yes
+      run_once: true
+      delegate_to: 127.0.0.1
       ansible.builtin.get_url:
         url: https://archive.apache.org/dist/hadoop/common/hadoop-{{hadoop_version}}/hadoop-{{hadoop_version}}.tar.gz
         dest: /tmp/hadoop-{{hadoop_version}}.tar.gz
