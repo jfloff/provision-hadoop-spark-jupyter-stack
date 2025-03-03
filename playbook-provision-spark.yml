@@ -28,6 +28,13 @@
         dest: "{{ default_install_dir }}"
         remote_src: yes
 
+    - name: Ensure YARN Shuffle Service JAR is present
+      copy:
+        src: "{{ default_install_dir }}/spark-{{ spark_version }}-bin-hadoop3/yarn/spark-{{ spark_version }}-yarn-shuffle.jar"
+        dest: "{{ default_install_dir }}/hadoop-{{ hadoop_version }}/share/hadoop/yarn/spark-{{ spark_version }}-yarn-shuffle.jar"
+        mode: '0644'
+        remote_src: yes
+
     - name: Create Spark data dir
       file:
         path: "{{ item }}"
