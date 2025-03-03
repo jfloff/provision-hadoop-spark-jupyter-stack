@@ -88,3 +88,37 @@
       ansible.builtin.template:
         src: templates/spark/spark-env.sh.j2
         dest: "{{spark_conf_dir}}/spark-env.sh"
+
+- hosts: spark_master
+  become: true
+  tasks:
+    - name: Ensure 127.0.1.1 is commented
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: '# \g<0>'
+        backrefs: yes
+
+    - name: Add workers entries to /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ hostvars[item]['ansible_host'] }} {{ item }}"
+        state: present
+        create: yes
+      loop: "{{ groups['spark_workers'] }}"
+
+- hosts: spark_workers
+  become: true
+  tasks:
+
+    - name: Get the master host and IP
+      set_fact:
+        namenode_ip: "{{ hostvars[groups['spark_master'][0]]['ansible_host'] }}"
+        namenode_host: "{{ groups['spark_master'][0] }}"
+
+    - name: Add master entry to /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ namenode_ip }} {{ namenode_host }}"
+        state: present
+        create: yes
