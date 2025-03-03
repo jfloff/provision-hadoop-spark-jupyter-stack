@@ -24,7 +24,7 @@ hadoop_temp_dir: "{{ default_install_dir }}/hadoop_temp"
 hadoop_conf_dir: "{{ default_install_dir }}/hadoop-{{hadoop_version}}/etc/hadoop"
 hadoop_home_dir: "{{ default_install_dir }}/hadoop-{{hadoop_version}}"
 hadoop_namenode_port: 9000
-hadoop_replication: 2
+hadoop_replication: 1
 
 # spark confs
 spark_version: 3.3.1
