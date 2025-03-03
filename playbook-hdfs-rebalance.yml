@@ -17,6 +17,6 @@
 
     - name: Rebalance HDFS
       ansible.builtin.shell: |
-        {{hadoop_home_dir}}/bin/hdfs balancer
+        {{hadoop_home_dir}}/bin/hdfs balancer -threshold 1
       args:
         executable: /bin/bash
