@@ -3,16 +3,16 @@
   any_errors_fatal: true
   gather_facts: yes # required for detecting os
   vars_files:
-      - vars.yaml
+    - vars.yaml
 
   tasks:
     - name: Create environment folder
-      file: 
+      file:
         path: "{{ item }}"
         state: directory
         mode: "g+rw"
       with_items:
-        - "{{ default_install_dir }}"      
+        - "{{ default_install_dir }}"
 
 
     - name: Copy default tmux
@@ -74,7 +74,7 @@
 
     - name: Include extra ssh hosts in the default config
       ansible.builtin.lineinfile:
-        path: "{{ default_home_dir }}/.ssh/config"      
+        path: "{{ default_home_dir }}/.ssh/config"
         line: "Include {{default_home_dir}}/.ssh/cluster_ssh_config"
         create: yes
 
@@ -82,7 +82,7 @@
       ansible.builtin.file:
         path: "{{item}}"
         state: touch
-        mode: '0600'        
+        mode: '0600'
       with_items:
         - "{{default_home_dir}}/.ssh/cluster_ssh_config"
         - "{{default_home_dir}}/.ssh/config"

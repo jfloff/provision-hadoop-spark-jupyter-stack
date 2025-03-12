@@ -6,17 +6,17 @@
   any_errors_fatal: true
   gather_facts: no
   vars_files:
-      - vars.yaml
+    - vars.yaml
 
   tasks:
 
     - name: Remove hadoop folders
-      file: 
+      file:
         path: "{{ item }}"
         state: absent
       with_items:
-        - "{{ hadoop_home_dir }}"      
-        - "{{ hadoop_hdfs_data_dir }}"      
-        - "{{ hadoop_namenode_dir }}"      
-        - "{{ hadoop_pid_dir }}"      
-        - "{{ hadoop_temp_dir }}"      
+        - "{{ hadoop_home_dir }}"
+        - "{{ hadoop_hdfs_data_dir }}"
+        - "{{ hadoop_namenode_dir }}"
+        - "{{ hadoop_pid_dir }}"
+        - "{{ hadoop_temp_dir }}"

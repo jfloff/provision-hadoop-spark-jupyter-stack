@@ -8,7 +8,7 @@
   any_errors_fatal: true
   gather_facts: no
   vars_files:
-      - vars.yaml
+    - vars.yaml
 
   tasks:
     - name: Stop specified processes

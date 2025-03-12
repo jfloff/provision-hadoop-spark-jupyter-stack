@@ -4,7 +4,7 @@
   any_errors_fatal: true
   gather_facts: no
   vars_files:
-      - vars.yaml
+    - vars.yaml
 
   tasks:
   - name: Stop WORKER processes
@@ -12,11 +12,11 @@
       process_to_kill: "'jupyter-notebook|tjupyter|start-jupyter'"
 
   - name: Run tasks to stop Jupyter processes
-    include_tasks: tasks/task-stop-process.yml  
+    include_tasks: tasks/task-stop-process.yml
 
   - name: Stop HDFS processes
     set_fact:
       process_to_kill: "'alibaba|java'"
 
   - name: Run tasks to stop HDFS
-    include_tasks: tasks/task-stop-process.yml  
+    include_tasks: tasks/task-stop-process.yml
