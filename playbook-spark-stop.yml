@@ -7,9 +7,34 @@
       - vars.yaml
 
   tasks:
-  - name: Stop Spark
-    ignore_errors: yes
-    ansible.builtin.shell: |
-      {{spark_home_dir}}/sbin/stop-all.sh
-    args:
-      executable: /bin/bash
+    - name: Stop Spark
+      ignore_errors: yes
+      ansible.builtin.shell: |
+        {{spark_home_dir}}/sbin/stop-all.sh
+      args:
+        executable: /bin/bash
+
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yaml
+
+  tasks:
+    - name: Ensure Spark data directories are empty
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{ spark_local_dirs }}"
+        - "{{ java_local_dirs }}"
+
+    - name: Create Spark data dir
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "g+rw"
+      with_items:
+        - "{{ spark_local_dirs }}"
+        - "{{ java_local_dirs }}"
