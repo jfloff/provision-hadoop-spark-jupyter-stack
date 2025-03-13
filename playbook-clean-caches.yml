@@ -7,12 +7,20 @@
     - vars.yaml
 
   tasks:
-  - name: Drop memory caches
-    become: yes
-    shell: >
-          sync; echo 3 > /proc/sys/vm/drop_caches
+    - name: Drop memory caches
+      become: yes
+      shell: >
+        sync; echo 3 > /proc/sys/vm/drop_caches
+      register: drop_caches_result
+      until: drop_caches_result.rc == 0
+      retries: 10
+      delay: 5
 
-  - name: Clean swap
-    become: yes
-    shell: >
-          swapoff -a; swapon -a
+    - name: Clean swap
+      become: yes
+      shell: >
+        swapoff -a; swapon -a
+      register: clean_swap_result
+      until: clean_swap_result.rc == 0
+      retries: 10
+      delay: 5
