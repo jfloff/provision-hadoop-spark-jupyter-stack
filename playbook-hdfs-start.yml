@@ -8,7 +8,7 @@
 
   tasks:
     - name: Start DFS
-      ansible.builtin.shell: |
-        {{hadoop_home_dir}}/sbin/start-all.sh
+      ansible.builtin.shell: >
+        {{ hadoop_home_dir }}/sbin/start-all.sh
       args:
         executable: /bin/bash

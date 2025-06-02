@@ -80,17 +80,19 @@
         src: templates/hadoop/yarn-site.xml.j2
         dest: "{{ hadoop_conf_dir }}/yarn-site.xml"
 
-    - name: Format HDFS
-      run_once: yes
-      delegate_to: "{{groups['hdfs_namenode'][0]}}"
-      ansible.builtin.shell: |
-        {{hadoop_home_dir}}/bin/hdfs namenode -format -force
-      args:
-        executable: /bin/bash
-
 - hosts: hdfs_namenode
   become: true
+  vars_files:
+    - vars.yaml
+
   tasks:
+    - name: Format HDFS
+      shell: >
+        {{ hadoop_home_dir }}/bin/hdfs namenode -format -force
+      args:
+        executable: /bin/bash
+      when: (hdfs_format | default(false)) | bool
+
     - name: Ensure 127.0.1.1 is commented
       lineinfile:
         path: /etc/hosts
